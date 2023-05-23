@@ -92,6 +92,9 @@ print(smelt_weight)
 ```
 
 빙어 데이터도 리스트로 표현했다.
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/46111adf-ddc5-406b-8a98-778f044746ad)
+
 ### 도미, 빙어 데이터 산점도
 ```python
 import matplotlib.pyplot as plt
@@ -193,3 +196,5 @@ print(35/49)
 그리고 앞에서와 같이 fit으로 훈련시키고 score로 확인하면 71% 정도 학습한 것을 볼 수 있다.
 
 49개중 35개가 도미니까 전체 샘플 49개중에 71%정도 도미인 것이기 때문에 잘 학습했다고 볼 수 있다.
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/481d52af-d8c5-4f7f-800d-6142d71d5d78)
