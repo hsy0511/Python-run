@@ -78,6 +78,8 @@ plt.show()
 matplotib.pyplot 라이브러리를 불러와 그래프를 그릴 수 있게했다.
 
 그래프에 형태는 scatter 함수를 이용하여 산점도 그래프로 만들었다.
+
+show 함수로 그래프를 호출한다.
 ### 빙어 데이터
 ```python
 smelt_length = [9.8, 10.5, 10.6, 11.0, 11.2, 11.3, 11.8, 11.8, 12.0, 12.2, 12.4, 13.0, 14.3, 15.0]
@@ -103,6 +105,8 @@ plt.show()
 matplotib.pyplot 라이브러리를 불러와 그래프를 그릴 수 있게했다.
 
 그래프에 형태는 scatter 함수를 이용하여 산점도 그래프로 만들었다.
+
+show 함수로 그래프를 호출한다.
 ### 도미, 빙어 데이터 길이와 무게로 분류
 ```python
 length = bream_length + smelt_length
