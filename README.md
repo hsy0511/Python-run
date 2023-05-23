@@ -39,6 +39,7 @@ colab 홈페이지에서 새노트를 열어줍니다.
 저장은 구글 드라이브에도 할 수 있어서 언제든지 볼 수 있는 장점이 있다.
 ## 제 3강 마켓과 머신러닝
 어느 마켓에 도미와 빙어를 비교하는 전통적인 프로그램
+- 길이가 30이 넘으면 도미
 - 비교할 두 클래스 도미와 빙어
 - 데이터별 리스트로 분류
 - 산점도 그리기
@@ -62,6 +63,7 @@ print(bream_weight)
 ```
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/75f10eac-2bdd-41c0-b64e-072a4b86ff34)
 
+도미 데이터를 리스트로 표현했다.
 ### 도미 데이터 산점도
 ```python
 import matplotlib.pyplot as plt
@@ -73,6 +75,9 @@ plt.show()
 ```
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/cf1eba32-4f68-4783-9778-2da121ed969b)
 
+matplotib.pyplot 라이브러리를 불러와 그래프를 그릴 수 있게했다.
+
+그래프에 형태는 scatter 함수를 이용하여 산점도 그래프로 만들었다.
 ### 빙어 데이터
 ```python
 smelt_length = [9.8, 10.5, 10.6, 11.0, 11.2, 11.3, 11.8, 11.8, 12.0, 12.2, 12.4, 13.0, 14.3, 15.0]
@@ -81,6 +86,8 @@ smelt_weight = [6.7, 7.5, 7.0, 9.7, 9.8, 8.7, 10.0, 9.9, 9.8, 12.2, 13.4, 12.2, 
 print(smelt_length)
 print(smelt_weight)
 ```
+
+빙어 데이터도 리스트로 표현했다.
 ### 도미, 빙어 데이터 산점도
 ```python
 import matplotlib.pyplot as plt
@@ -93,6 +100,9 @@ plt.show()
 ```
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/d3b5df2f-4bd5-4322-be82-f032dc317351)
 
+matplotib.pyplot 라이브러리를 불러와 그래프를 그릴 수 있게했다.
+
+그래프에 형태는 scatter 함수를 이용하여 산점도 그래프로 만들었다.
 ### 도미, 빙어 데이터 길이와 무게로 분류
 ```python
 length = bream_length + smelt_length
@@ -103,7 +113,10 @@ print(weight)
 ```
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/7f7e77e3-a9f4-45d4-b700-60318f543a5f)
 
-머신러닝 라이브러리 사이킷런이 원하는 데이터 형태 : 이진분류(2차원 배열)
+빙어의 길이와 도미의 길이를 length 변수안에 하나의 리스트로 연결해서 저장한다.
+
+빙어의 무게와 도미의 무게를 weight 변수안에 하나의 리스트로 연결해서 저장한다.
+### 머신러닝 라이브러리 사이킷런이 원하는 데이터 형태 : 이진분류(2차원 배열)
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/eaf93529-f018-4fb1-bd5e-c4c18971c93c)
 ### 이진분류
 ```python
@@ -113,6 +126,7 @@ print(fish_data)
 ```
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/96c79bf9-8e96-4c97-a23e-d00640faada6)
 
+zip 함수로 길이와 무게를 묶어서 길이는 l에 저장하고 무게는 w에 저장하여 리스트 안에 리스트들을 만들어 2차원배열을 생성한다.
 ### 도미, 빙어 값 정하기
 ```python
 fish_target = [1]*35 + [0]*14
@@ -121,6 +135,9 @@ print(fish_target)
 ```
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/792a33d2-fae1-4b14-9b18-fe2d795843ea)
 
+리스트에 1이 35개 0이 14개인 리스트를 만든다.
+
+여기서 우리는 1이 도미고 2가 빙어인것을 짐작하여 데이터를 정할 수 있다.
 ### k-최근접 이웃(머신러닝 알고리즘)으로 도미, 빙어 값이 무엇인지 확인하기
 ```python
 from sklearn.neighbors import KNeighborsClassifier
@@ -130,4 +147,37 @@ kn.score(fish_data, fish_target)
 ```
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/91f49573-3f66-4f5a-9b3d-80a1b0d5169f)
 
+머신러닝의 라이브러리인 사이킷런에서 네이벌스 클래스객체를 불러온다.
+
+네이벌스 클래스객체를 kn(모델)에 저장하고 fit 메서드을 통해서 fish_data와 fish_target에 머신러닝을 훈련 시켜줍니다.
+
+잘 훈련되었는지 확인하기 위해 kn.score 메서드를 통해서 확인한다. 
+
+score를 호출했을 때 값이 1.0이면 100% 정확도로 훈련한 것이다.
 ### 새로운 생선 예측
+![image](https://github.com/hsy0511/Python-run/assets/104752580/40222ec6-03d1-4d1d-b293-32806bbec8a1)
+
+```python
+kn.predict([[30,600]])
+```
+![image](https://github.com/hsy0511/Python-run/assets/104752580/b1631b66-9116-4367-a076-ba772b1245f1)
+길이가 30이고 무게가 600인 생선에 데이터를 predict 메서드로 예측할 수 있다.
+
+predict의 값이 1이 나왔으면 도미인 것으로 예측한 것이고 길이가 30이 넘었기 때문에 이 생선은 도미인 것을 확인할 수 있다.
+
+이것으로 머신러닝을 잘 훈련된 것도 알 수 있다.
+### 무조건 도미
+```python
+kn49 = KNeighborsClassifier(n_neighbors=49)
+
+kn49.fit(fish_data, fish_target)
+kn49.score(fish_data, fish_target)
+
+print(35/49)
+```
+
+전체 샘플 49개를 다 바라보고 전체 샘플에 다수는 도미기 때문에 다 도미로 본다.
+
+그리고 앞에서와 같이 fit으로 훈련시키고 score로 확인하면 71% 정도 학습한 것을 볼 수 있다.
+
+49개중 35개가 도미니까 전체 샘플 49개중에 71%정도 도미인 것이기 때문에 잘 학습했다고 볼 수 있다.
