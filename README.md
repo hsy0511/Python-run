@@ -1,6 +1,7 @@
 # Python-run
 # 인공지능, 머신러닝, 딥러닝
 강의 : 혼자 공부하는 머신러닝+딥러닝 
+
 url : https://www.youtube.com/playlist?list=PLVsNizTWUw7HpqmdphX9hgyWl15nobgQX
 ### 1,2,3강 내용 : https://colab.research.google.com/drive/1XqPM5tEmg1vGtsT5J-w7FZR_c4_GUA7F?usp=share_link
 
