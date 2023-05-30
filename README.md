@@ -224,6 +224,7 @@ print(35/49)
 
 테스트 세트에서도 도미와 빙어가 섞여 있어야 한다.
 ### 샘플링 편향 (잘못된 데이터)
+앞에 데이터 도미 35마리를 훈련 시키고 뒤에 데이터 빙어 15마리를 테스트 시키기 때문에 당연히 0% 학습을 한다. 
 ```python
 train_input = fish_data[:35] 0인덱스부터 34 인덱스까지 슬라이싱 
 train_target = fish_target[:35]
@@ -245,7 +246,10 @@ kn.score(test_input, test_target) 훈련 테스트
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/cd87de57-7643-44f4-9469-912bd9cf4741)
 
 ### 샘플링 편향 (올바른 데이터)
+
 - 넘파이 사용하기
+
+여기서 넘파이를 사용하는 이유는 리스트로만 표현하기에는 한계가 있을 수 있기 때문에 차원 배열로 표시하기 위해서 입니다.
 ```python
 import numpy as np
 
@@ -256,6 +260,8 @@ print(input_arr)
 ```
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/ddf514f9-2f95-44da-be1e-c4a469ec5e78)
 - 데이터 섞기
+
+넘파이 2차원 배열을 랜덤으로 섞어서 나타낸다.
 ```python
 index = np.arange(49) 0~48까지 1씩 증가하는 정수 배열 만들어줌
 np.random.shuffle(index) index 배열 랜덤으로 섞기
@@ -266,13 +272,12 @@ train_target = target_arr[index[:35]]
 test_input = input_arr[index[35:]] 35~마지막 인덱스까지 배열 슬라이싱
 test_target = target_arr[index[35:]] 
 ```
-
-배열 데이터
-
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/5f8f6030-2fe0-4834-bc31-f46a0fa8ca8b)
 
 
 - 데이터 나누고 확인하기
+
+그래프를 그려서 데이터가 섞였는지 확인한다.
 ```python
 import matplotlib.pyplot as plt
 
@@ -284,6 +289,8 @@ plt.show()
 ```
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/157c19ff-fb68-4633-b1d7-22fdb6303dd8)
 - 결과 확인
+
+섞여진 데이터가 학습이 되었는지 확인한다.
 ```python
 kn = kn.fit(train_input, train_target) 훈련
 
