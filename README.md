@@ -203,14 +203,24 @@ print(35/49)
 ###  머신러닝 학습
 1. 지도 학습 : 정답이 있는 데이터를 활용해 입력 값이 주어지면 입력값에 대한 Label를 주어 학습한다. (예 : k-최근접 이웃)
 2. 비지도 학습 : 정답 라벨이 없는 데이터를 비슷한 특징끼리 군집화 하여 새로운 데이터에 대한 결과를 예측하여 학습한다. (상품 파악)
-- 군집화 : 주어진 데이터 집합을 유사한 데이터들의 그룹으로 나누는 것
+###### ※ 군집화 : 주어진 데이터 집합을 유사한 데이터들의 그룹으로 나누는 것
 3. 강화 학습 : 데이터가 존재하는 것도 아니고 데이터가 있어도 정답이 따로 정해져 있지 않으며 자신이 한 행동에 대해 보상을 받으며 학습한다. (예 : 알파고)
 
 ### 샘플링 편향 (훈련 세트와 테스트 세트로 나눠 평가)
+샘플링 편향이란? 
+
+샘플이 크더라도 표본 추출 방법이 잘못되어 일반적이지 않은 대표성 없는 데이터가 포함되는 경우를 뜻한다.
+
+###### ※ 대표성 : 어떤 조직이나 대표단 따위를 대표하는 성질이나 특성
 - 잘못된 데이터
 훈련 세트에는 앞에 35개를 훈련 시키고, 테스트 세트는 뒤에 15개 테스트 시킨다.
 
 도미 35마리를 훈련시키고 빙어 15마리를 테스트 시키면 당연히 0% 학습을 한다.
+
+- 올바른 데이터
+훈련 세트에서도 도미와 빙어가 섞여 있어야 하고
+
+테스트 세트에서도 도미와 빙어가 섞여 있어야 한다.
 ### 샘플링 편향 (잘못된 데이터)
 ```python
 train_input = fish_data[:35] 0인덱스부터 34 인덱스까지 슬라이싱 
@@ -227,3 +237,43 @@ kn = kn.fit(train_input, train_target) 트레인 훈련
 kn.score(test_input, test_target) 훈련 테스트
 ```
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/aa1e3a4b-6c1b-4301-9a00-0f0e493ae59d)
+### 샘플링 편향 (올바른 데이터)
+- 넘파이 사용하기
+```python
+import numpy as np
+
+input_arr = np.array(fish_data)
+target_arr = np.array(fish_target)
+
+print(input_arr)
+```
+![image](https://github.com/hsy0511/Python-run/assets/104752580/ddf514f9-2f95-44da-be1e-c4a469ec5e78)
+- 데이터 섞기
+```python
+index = np.arange(49) 0~48까지 1씩 증가하는 정수 배열 만들어줌
+np.random.shuffle(index) index 배열 랜덤으로 섞기
+
+train_input = input_arr[index[:35]] 0~34 인덱스까지 배열 슬라이싱
+train_target = target_arr[index[:35]] 
+
+test_input = input_arr[index[35:]] 35~마지막 인덱스까지 배열 슬라이싱
+test_target = target_arr[index[35:]] 
+```
+- 데이터 나누고 확인하기
+```python
+import matplotlib.pyplot as plt
+
+plt.scatter(train_input[:,0], train_input[:,1]) 첫번째 열에 전체 행을 선택한다. 두번째 열에 전체 행을 선택한다.
+plt.scatter(test_input[:,0], test_input[:,1])
+plt.xlabel('length')
+plt.ylabel('weight')
+plt.show()
+```
+![image](https://github.com/hsy0511/Python-run/assets/104752580/157c19ff-fb68-4633-b1d7-22fdb6303dd8)
+- 결과 확인
+```python
+kn = kn.fit(train_input, train_target) 훈련
+
+kn.score(test_input, test_target) 테스트
+```
+![image](https://github.com/hsy0511/Python-run/assets/104752580/8f598b7e-b02a-4e23-bc87-e74c976d4d28)
