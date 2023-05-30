@@ -4,7 +4,7 @@
 
 url : https://www.youtube.com/playlist?list=PLVsNizTWUw7HpqmdphX9hgyWl15nobgQX
 ### 1,2,3강 내용 : https://colab.research.google.com/drive/1XqPM5tEmg1vGtsT5J-w7FZR_c4_GUA7F?usp=share_link
-
+### 4강 내용 : 
 
 
 ## 제 1강 인공지능, 머신러닝 그리고 딥러닝이란 무엇인가?
@@ -198,3 +198,32 @@ print(35/49)
 49개중 35개가 도미니까 전체 샘플 49개중에 71%정도 도미인 것이기 때문에 잘 학습했다고 볼 수 있다.
 
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/481d52af-d8c5-4f7f-800d-6142d71d5d78)
+
+## 제 4강 훈련 세트와 테스트 세트로 나누어 사용하기 
+###  머신러닝 학습
+1. 지도 학습 : 정답이 있는 데이터를 활용해 입력 값이 주어지면 입력값에 대한 Label를 주어 학습한다. (예 : k-최근접 이웃)
+2. 비지도 학습 : 정답 라벨이 없는 데이터를 비슷한 특징끼리 군집화 하여 새로운 데이터에 대한 결과를 예측하여 학습한다. (상품 파악)
+- 군집화 : 주어진 데이터 집합을 유사한 데이터들의 그룹으로 나누는 것
+3. 강화 학습 : 데이터가 존재하는 것도 아니고 데이터가 있어도 정답이 따로 정해져 있지 않으며 자신이 한 행동에 대해 보상을 받으며 학습한다. (예 : 알파고)
+
+### 샘플링 편향 (훈련 세트와 테스트 세트로 나눠 평가)
+- 잘못된 데이터
+훈련 세트에는 앞에 35개를 훈련 시키고, 테스트 세트는 뒤에 15개 테스트 시킨다.
+
+도미 35마리를 훈련시키고 빙어 15마리를 테스트 시키면 당연히 0% 학습을 한다.
+### 샘플링 편향 (잘못된 데이터)
+```python
+train_input = fish_data[:35] 0인덱스부터 34 인덱스까지 슬라이싱 
+train_target = fish_target[:35]
+
+test_input = fish_data[35:] 35인덱스부터 끝까지 슬라이싱
+test_target = fish_target[35:]
+
+from sklearn.neighbors import KNeighborsClassifier
+
+kn = KNeighborsClassifier() 클래스 객체 초기화
+kn = kn.fit(train_input, train_target) 트레인 훈련
+
+kn.score(test_input, test_target) 훈련 테스트
+```
+![image](https://github.com/hsy0511/Python-run/assets/104752580/aa1e3a4b-6c1b-4301-9a00-0f0e493ae59d)
