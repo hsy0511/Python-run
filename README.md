@@ -275,6 +275,8 @@ print(input_arr)
 - 데이터 섞기
 
 넘파이 2차원 배열을 랜덤으로 섞어서 나타낸다.
+
+0과 1은 도미와 빙어를 말한다. 0은 도미, 1은 빙어
 ###### ※ shuffle : 혼합 (리스트)
 ###### ※ ramdom.shuffle() : 리스트 섞기
 ```python
@@ -288,8 +290,6 @@ test_input = input_arr[index[35:]] 35~마지막 인덱스까지 배열 슬라이
 test_target = target_arr[index[35:]] 
 ```
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/5f8f6030-2fe0-4834-bc31-f46a0fa8ca8b)
-
-0과 1은 도미와 빙어를 말한다. 0은 도미, 1은 빙어
 
 
 - 데이터 나누고 확인하기
