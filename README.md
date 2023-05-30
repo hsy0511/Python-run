@@ -236,6 +236,8 @@ print(35/49)
 테스트 세트에서도 도미와 빙어가 섞여 있기 때문에 100% 학습을 한다.
 ### 샘플링 편향 (잘못된 훈련 데이터)
 앞에 데이터 도미 35마리를 훈련 시키고 뒤에 데이터 빙어 15마리를 테스트 시키기 때문에 당연히 0% 학습을 한다. 
+
+0과 1은 도미와 빙어를 말한다. 0은 도미, 1은 빙어
 ```python
 train_input = fish_data[:35] 0인덱스부터 34 인덱스까지 슬라이싱 
 train_target = fish_target[:35]
@@ -286,6 +288,8 @@ test_input = input_arr[index[35:]] 35~마지막 인덱스까지 배열 슬라이
 test_target = target_arr[index[35:]] 
 ```
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/5f8f6030-2fe0-4834-bc31-f46a0fa8ca8b)
+
+0과 1은 도미와 빙어를 말한다. 0은 도미, 1은 빙어
 
 
 - 데이터 나누고 확인하기
