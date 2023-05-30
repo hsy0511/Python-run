@@ -265,6 +265,8 @@ print(input_arr)
 - 데이터 섞기
 
 넘파이 2차원 배열을 랜덤으로 섞어서 나타낸다.
+###### ※ shuffle : 혼합 (리스트)
+###### ※ ramdom.shuffle() : 리스트 섞기
 ```python
 index = np.arange(49) 0~48까지 1씩 증가하는 정수 배열 만들어줌
 np.random.shuffle(index) index 배열 랜덤으로 섞기
