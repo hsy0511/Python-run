@@ -3,8 +3,8 @@
 강의 : 혼자 공부하는 머신러닝+딥러닝 
 
 url : https://www.youtube.com/playlist?list=PLVsNizTWUw7HpqmdphX9hgyWl15nobgQX
-### 1,2,3강 내용 : https://colab.research.google.com/drive/1XqPM5tEmg1vGtsT5J-w7FZR_c4_GUA7F?usp=share_link
-### 4강 내용 : 
+### 강의 내용 : https://colab.research.google.com/drive/1XqPM5tEmg1vGtsT5J-w7FZR_c4_GUA7F?usp=share_link
+
 
 
 ## 제 1강 인공지능, 머신러닝 그리고 딥러닝이란 무엇인가?
@@ -239,6 +239,11 @@ kn = kn.fit(train_input, train_target) 트레인 훈련
 kn.score(test_input, test_target) 훈련 테스트
 ```
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/aa1e3a4b-6c1b-4301-9a00-0f0e493ae59d)
+
+배열 데이터
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/cd87de57-7643-44f4-9469-912bd9cf4741)
+
 ### 샘플링 편향 (올바른 데이터)
 - 넘파이 사용하기
 ```python
@@ -261,6 +266,12 @@ train_target = target_arr[index[:35]]
 test_input = input_arr[index[35:]] 35~마지막 인덱스까지 배열 슬라이싱
 test_target = target_arr[index[35:]] 
 ```
+
+배열 데이터
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/5f8f6030-2fe0-4834-bc31-f46a0fa8ca8b)
+
+
 - 데이터 나누고 확인하기
 ```python
 import matplotlib.pyplot as plt
