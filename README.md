@@ -514,6 +514,10 @@ plt.show()
 표준 점수로 만든 그래프를 k-최근접 이웃으로 다시 그래프를 만든다.
 
 ```python
+from sklearn.neighbors import KNeighborsClassifier
+
+kn = KNeighborsClassifier()
+
 kn.fit(train_scaled, train_target)
 두개의 데이터를 훈련시킨다.
 
