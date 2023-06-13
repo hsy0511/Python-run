@@ -416,7 +416,7 @@ plt.scatter(train_input[:,0], train_input[:,1])
 plt.scatter(25,150, marker = '^')
 25cm 150g 물고기는 ▲로 표시한다.
 
-plt.scatter(train_input[indexes,0], train_input[indexes, 1], merker = 'D')
+plt.scatter(train_input[indexes,0], train_input[indexes, 1], marker = 'D')
 배열 인덱싱을하여 배열 데이터의 첫번째 열인 길이와 두번째 열인 무게를 반환한다.
 그리고 이웃한 가장 가까운 5개의 데이터를 ◆로 나타낸다.
 
@@ -440,7 +440,7 @@ plt.scatter(train_input[:,0], train_input[:,1])
 plt.scatter(25,150,marker = '^')
 25cm 150g 물고기는 ▲로 표시한다.
 
-plt.scatter(train_input[indexes,0], train_input[indexes, 1], merker = 'D')
+plt.scatter(train_input[indexes,0], train_input[indexes, 1], marker = 'D')
 배열 인덱싱을하여 배열 데이터의 첫번째 열인 길이와 두번째 열인 무게를 반환한다.
 그리고 이웃한 가장 가까운 5개의 데이터를 ◆로 나타낸다.
 
