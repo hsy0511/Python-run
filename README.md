@@ -319,3 +319,242 @@ kn.score(test_input, test_target) 테스트
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/8f598b7e-b02a-4e23-bc87-e74c976d4d28)
 
 100% 학습이 완료 된것을 알 수 있다.
+
+## 제 5강 정교한 결과 도출을 위한 데이터 전처리 알아보기
+- 길이가 25cm이고 무게가 150g이 나가는 생선이 도미인지 빙어인지 알아보자
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/96cdc631-34cb-481e-9ac1-4af31b9c502b)
+
+- 넘파이를 이용하여 데이터를 준비한다.
+
+```python
+fish_data = np.column_stack((fish_length, fish_weight))
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/734ee2a8-37ce-4923-ad16-130541451938)
+
+첫열은 length, 두번째 열은 weight이다.
+
+column_stack을 사용하여 배열을 열방향으로 쌓는다.
+
+- 35개 도미와 14개 빙어를 알기 위해서 도미는 1 빙어는 0으로 나타낸다.
+
+```python
+fish_target = np.concatenate((np.ones(35), np.zeros(14)))
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/8577069a-1259-4bdc-9731-8ae739190dea)
+
+np.ones()는 1로 채워주는 함수이고, np.zeros()는 0으로 채워주는 함수이다.
+
+concatenate() 함수는 하나의 배열로 데이터를 묶어주는 함수이다.
+
+즉, np.concatenate((np.ones(35), np.zeros(14)))는 1 데이터 35개와 0 데이터 14개가 같이 한 배열에 있는것을 의미한다.
+
+- 사이킷런으로 데이터 나누기
+
+```python
+from sklearn.model_selection import train_test_split
+```
+
+사이킷런 모델 셀렉션 모듈 밑에 트레인 테스트 스플릿이라는 함수를 제공하고 있다.
+
+훈련 세트와 테스트 세트로 나눈다.
+
+```python
+train_input, test_input, train_target, test_target = train_test_split(
+    fish_data, fish_target, stratify = fish_target, random_state = 42)
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/9394727a-e6fe-465a-bbc2-e810c51c1770)
+
+train_test_split 함수는 입력 데이터와 타겟 데이터를 한꺼번에 전달할 수 있다.
+
+stratify라는 매개변수는 특정 클래스의 샘플이 작을 때 사용한다.
+
+stratify 매개변수를 random_state라는 난수 값과 같이 사용하여 fish_target 값이 섞이도록 해준다.
+
+- 수상한 도미
+
+```python
+from sklearn.neighbors import KNeighborsClassifier
+
+kn = KNeighborsClassifier()
+kn.fit(train_input, train_target)
+kn = kn.score(test_input, test_target)
+```
+
+KNeighborsClassifier 모듈을 불러와서 주변 5개에 요소를 바라보면서 예측을 하고
+
+kn 모델을 fit 메소드와 score 메소드로 훈련과 테스트를 시킨다.
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/da9f6b30-1a57-4b9d-98fb-15f5e933fa46)
+
+100% 훈련된 것 볼 수 있다.
+
+이상한 도미 길이 25cm의 무게 150g을 predict 메소드로 클래스를 예측했다.
+
+```python
+print(kn.predict([[25,150]]))
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/3ed1a5f1-8dff-423f-b979-fd222f5fd09b)
+
+0이 나왔다. 즉 빙어라는 예측이 나왔다.
+
+좀 더 정확하게 확인하기 위해 kneighbors 메소드를 이용한다.
+
+kneighbors 메소드는 k-최근접 이웃 알고리즘이 바라보는 이웃의 샘플을 뽑아낸다.
+
+```python
+distances, indexes = kn.kneighbors([[25,150]])
+거리       인덱스
+
+plt.scatter(train_input[:,0], train_input[:,1])
+모든 행의 지정 열을 인덱싱 한다
+
+plt.scatter(25,150, marker = '^')
+25cm 150g 물고기는 ▲로 표시한다.
+
+plt.scatter(train_input[indexes,0], train_input[indexes, 1], merker = 'D')
+배열 인덱싱을하여 배열 데이터의 첫번째 열인 길이와 두번째 열인 무게를 반환한다.
+그리고 이웃한 가장 가까운 5개의 데이터를 ◆로 나타낸다.
+
+plt.xlabel('length')
+plt.ylabel('weight')
+plt.show()
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/f4f78a9c-c1d4-400e-a108-6c28ce81f548)
+
+그래프를 봤을 때 도미에 더 가까운것 같이 보이지만 무게 단위는 1000까지고 길이 단위는 40까지이기 때문에 실제로는 빙어와 같은것이 맞다.
+
+- 기준을 맞춰라 
+
+위에서 말한거와 같이 실제로 어느 물고기와 가까운 데이터인지 확인한다.
+
+```python
+plt.scatter(train_input[:,0], train_input[:,1])
+모든 행의 지정 열을 인덱싱 한다
+
+plt.scatter(25,150,marker = '^')
+25cm 150g 물고기는 ▲로 표시한다.
+
+plt.scatter(train_input[indexes,0], train_input[indexes, 1], merker = 'D')
+배열 인덱싱을하여 배열 데이터의 첫번째 열인 길이와 두번째 열인 무게를 반환한다.
+그리고 이웃한 가장 가까운 5개의 데이터를 ◆로 나타낸다.
+
+plt.xlim((0,1000))
+축의 범위를 수동으로 지정한다.
+
+plt.xlabel('length')
+plt.ylabel('weight')
+plt.show()
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/4b75a75c-b8d2-4f69-a0e1-8e7b4719b09a)
+
+축의 범위를 1000으로 지정하고 봤을 때 수상한 생선과 가까운 5개의 생선은 빙어인 것을 더 정확하게 볼 수 있다.
+
+하지만 여기서는 길이로는 물고기를 예측하지 않고 무게로만 예측했다.
+
+- 표준 점수로 바꾸기 
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/d7b4f62f-d969-466e-b65e-e614fb4ea992)
+
+무게와 길이 두 특성을 사용하여 예측하는 것이다.
+
+두 특성을 사용하여 예측하기 위해서는 무게아 길이의 평균과 표준편차를 구해야 합니다.
+
+```python
+mean = np.mean(train_input, axis = 0)
+mean 함수를 이용하여 train_input 배열의 두개에 데이터의 평균을 구한다.
+
+std = np.std(train_input,axis=0)
+std 함수를 이용하여 train_input 배열의 두개에 데이터의 표준편차를 구한다.
+print(mean,std)
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/9b1931a0-cd05-497a-a941-2434a49095de)
+
+평균과 표준편차를 얻으면 표준 점수로 바꿔야하기 때문에 (특성 - 평균) / 표준 편차를 해야합니다.
+
+```python
+train_scaled = (train_input - mean) / std
+print(train_scaled)
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/26d01a05-f643-4b75-a53f-e32ffdb75622)
+
+train_scaled를 표준 점수로 지정해 줍니다.
+
+- 수상한 도미 다시 표시하기
+
+```python
+new = ([25,150] - mean) / std
+수상한 도미 데이터도 표준점수로 변환시킨다.
+
+plt.scatter(train_scaled[:,0], train_scaled[:,1])
+모든 행의 지정 열을 인덱싱 한다
+
+plt.scatter(new[0], new[1], marker= '^')
+수상한 도미 데이터는 ▲로 표시한다.
+
+plt.xlabel('length')
+plt.ylabel('weight')
+plt.show()
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/ddaaeb61-dddf-40ec-a884-345bac1707f2)
+
+표준 점수의 그래프로 나타난다.
+
+- 전처리 데이터에서 모델 훈련
+
+표준 점수로 만든 그래프를 k-최근접 이웃으로 다시 그래프를 만든다.
+
+```python
+kn.fit(train_scaled, train_target)
+두개의 데이터를 훈련시킨다.
+
+test_scaled = (test_input - mean) / std
+test_scaled 데이터를 표준점수로 지정한다.
+
+kn.score(test_scaled, test_target)
+훈련시킨 데이터를 테스트한다.
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/69fb2d22-6d0e-4093-8f65-8ec7d516c1e9)
+
+100% 훈련된 것을 볼 수 있다.
+
+```python
+print(kn.predict([new]))
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/e1332aeb-3431-4da5-84c1-3d8723243744)
+
+1로 예측했다. 즉 도미로 예측한 것이다.
+
+```python
+distances, indexes = kn.kneighbors([new])
+거리       인덱스
+
+plt.scatter(train_scaled[:,0], train_scaled[:,1])
+모든 행의 지정 열을 인덱싱 한다
+
+plt.scatter(new[0], new[1], marker='^')
+수상한 도미 는 ▲로 표시한다.
+
+plt.scatter(train_scaled[indexes,0], train_scaled[indexes,1], marker='D')
+배열 인덱싱을하여 배열 데이터의 첫번째 열인 길이와 두번째 열인 무게를 반환한다.
+그리고 이웃한 가장 가까운 5개의 데이터를 ◆로 나타낸다.
+
+plt.xlabel('length')
+plt.ylabel('weight')
+plt.show()
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/0b8cd057-8129-4b55-b75f-aaef5b30e69b)
+
+표준 점수를 사용하여 k-최근접 이웃 그래프를 그렸을 때 가장 가까운 데이터 5개가 도미로 나온것을 보아 결국에 수상한 도미 데이터는 도미인 것을 알 수 있다.
