@@ -644,7 +644,7 @@ print(test_input)
 
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/5ab5e335-d331-4ea2-a6aa-93a80c3e9828)
 
-트레인 데이터와 테스트 데이터를 2차원 배열로 바꿨다.
+트레인 세트와 테스트 세트를 2차원 배열로 바꿨다.
 
 - 회귀 모델 훈련
 
@@ -665,7 +665,7 @@ knr.score(test_input, test_target)
 
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/d2fb79e4-9333-421f-ad2d-50888fe3a7cf)
 
-하지만 회귀는 분류와 달리 정확도가 나오는 것이 아니라 결정 계수가 나온다.
+회귀는 분류와 달리 정확도가 나오는 것이 아니라 결정 계수가 나온다.
 
 ###### ※ 결정계수: 대상을 얼마나 잘 설명할 수 있는가를 숫자로 나타낸 것
 
