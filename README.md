@@ -6,7 +6,7 @@ url : https://www.youtube.com/playlist?list=PLVsNizTWUw7HpqmdphX9hgyWl15nobgQX
 
 강의 내용 : https://colab.research.google.com/drive/1XqPM5tEmg1vGtsT5J-w7FZR_c4_GUA7F?usp=share_link
 
-### [제 1강 인공지능, 머신러닝 그리고 딥러닝이란 무엇인가?](#제 1강 인공지능, 머신러닝 그리고 딥러닝이란 무엇인가?)
+### [제 1강 인공지능, 머신러닝 그리고 딥러닝이란 무엇인가?]
 
 ## 제 1강 인공지능, 머신러닝 그리고 딥러닝이란 무엇인가?
 인공지능 : 사람처럼 학습할 수 있고 사람 정도의 지능을 가지고 있는 지적 시스템
