@@ -562,3 +562,196 @@ plt.show()
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/0b8cd057-8129-4b55-b75f-aaef5b30e69b)
 
 표준 점수를 사용하여 k-최근접 이웃 그래프를 그렸을 때 가장 가까운 데이터 5개가 도미로 나온것을 보아 결국에 수상한 도미 데이터는 도미인 것을 알 수 있다.
+
+## 제 6강, 회귀 문제를 이해하고 k-최근접 이웃 알고리즘으로 풀어 보기
+
+- 농어의 무게를 예측하라
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/c0629b00-cd99-4331-a3bf-7abc9c11ff90)
+
+농어의 무게를 예측기위해 회귀를 사용한다.
+
+길이를 사용해서 무게를 예측할 것이다.
+
+- 회귀(regression)
+
+회귀는 샘플의 특성값으로부터 다른 특성값을 유추하는 방법이다.
+
+- k-최근접 이웃 회귀
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/6ff0e0a8-933a-4bf5-a6dc-c3f60eea1f25)
+
+이웃한 숫자의 평균값이 회귀에 예측 값이다.
+
+- 농어의 길이만 사용
+
+```python
+import numpy as np
+numpy 배열 사용
+
+perch_length = np.array([8.4, 13.7, 15.0, 16.2, 17.4, 18.0, 18.7, 19.0, 19.6, 20.0, 21.0,
+       21.0, 21.0, 21.3, 22.0, 22.0, 22.0, 22.0, 22.0, 22.5, 22.5, 22.7,
+       23.0, 23.5, 24.0, 24.0, 24.6, 25.0, 25.6, 26.5, 27.3, 27.5, 27.5,
+       27.5, 28.0, 28.7, 30.0, 32.8, 34.5, 35.0, 36.5, 36.0, 37.0, 37.0,
+       39.0, 39.0, 39.0, 40.0, 40.0, 40.0, 40.0, 42.0, 43.0, 43.0, 43.5,
+       44.0])
+
+perch_weight = np.array([5.9, 32.0, 40.0, 51.5, 70.0, 100.0, 78.0, 80.0, 85.0, 85.0, 110.0,
+       115.0, 125.0, 130.0, 120.0, 120.0, 130.0, 135.0, 110.0, 130.0,
+       150.0, 145.0, 150.0, 170.0, 225.0, 145.0, 188.0, 180.0, 197.0,
+       218.0, 300.0, 260.0, 265.0, 250.0, 250.0, 300.0, 320.0, 514.0,
+       556.0, 840.0, 685.0, 700.0, 700.0, 690.0, 900.0, 650.0, 820.0,
+       850.0, 900.0, 1015.0, 820.0, 1100.0, 1000.0, 1100.0, 1000.0,
+       1000.0])
+
+print(perch_length)
+
+print(perch_weight)
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/8a1f4586-ffcf-44b9-a7f5-d4516707a530)
+
+```python
+import matplotlib.pyplot as plt
+
+plt.scatter(perch_length, perch_weight)
+plt.xlabel('length')
+plt.ylabel('weight')
+plt.show()
+산점도 그래프를 그려서 농어 데이터를 쉽게 볼 수 있다.
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/f4b191ea-ea28-4a77-9fc5-f90f6dc0888b)
+
+- 훈련 세트 준비
+
+```python
+from sklearn.model_selection import train_test_split
+train_test_split 모듈 사용하여 배열을 나눠준다.
+
+train_input, test_input, train_target, test_target = train_test_split(
+    perch_length, perch_weight, random_state = 42)    
+train_test_split 모듈 사용하여 훈련데이터와 테스트 배열을 1차원 배열로 나눠준다.
+
+train_input = train_input.reshape(-1, 1)
+test_input = test_input.reshape(-1, 1)
+reshape(-1,1)에서 1은 하나의 열이 있는 2차원 배열을 생성한다는 것이다.
+-1은 나머지 차원이 결정되고 남은 차원을 사용한다는 뜻이다.
+  
+print(train_input)
+print(test_input)
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/5ab5e335-d331-4ea2-a6aa-93a80c3e9828)
+
+트레인 데이터와 테스트 데이터를 2차원 배열로 바꿨다.
+
+- 회귀 모델 훈련
+
+```python
+from sklearn.neighbors import KNeighborsRegressor
+KNeighborsRegressor 모듈을 사용하여 k-최근접 이웃 회귀를 사용할 수 있다.
+
+knr = KNeighborsRegressor()
+모델에 클래스 객체 할당
+
+knr.fit(train_input, train_target)
+모델을 훈련시킨다.
+  
+knr.score(test_input, test_target)
+모델을 테스트 시킨다.
+
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/d2fb79e4-9333-421f-ad2d-50888fe3a7cf)
+
+하지만 회귀는 분류와 달리 정확도가 나오는 것이 아니라 결정 계수가 나온다.
+
+###### ※ 결정계수: 대상을 얼마나 잘 설명할 수 있는가를 숫자로 나타낸 것
+
+### 결정계수(R2) 구하는 방법
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/31bcfb7e-3ad1-414f-b5cd-fab3004515c4)
+
+여기서 타겟은 무게이다.
+
+R2가 1에 가까워지면 좋은 회귀 모델이다.
+
+- 평균 구하기
+
+```python
+from sklearn.metrics import mean_absolute_error
+mean_absolute_error라는 모듈을 사용하여 평균을 구한다.
+
+test_prediction = knr.predict(test_input)
+test_input의 예측한 값을 test_prediction에 저장한다.
+
+mae = mean_absolute_error(test_target, test_prediction)
+test_target과 test_prediction의 차이 평균을 절대 값으로 mae에 저장한다.
+print(mae)
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/0833a2c8-9265-4ad7-8338-99d0715c0d8b)
+
+- 과대적합과 과소적합
+
+```python
+knr.score(train_input, train_target)
+훈련 세트를 테스트 시킨다.
+
+knr.score(test_input, test_target)
+테스트 세트를 테스트 시킨다.
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/315a3549-6334-4b6e-874e-a690f0576a02)
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/d58ab05d-e639-42f5-a1d9-8ac069006e68)
+
+원래 테스트 세트보다 훈련 세트가 더 테스트 값이 높게 나와야 되는데 여기서는 테스트 세트가 더 높게 나왔다.
+
+이런 현상을 훈련 세트를 적절히 학습하지 못했다는 것으로 과소적합했다 라고 말한다.
+
+또 반대로 너무 훈련에만 맞아서 테스트 세트가 실전에 투입했을 때 형판없는 모델이 된다는 것을 과대적합 이라고도 부릅니다.
+
+- 이웃 개수 줄이기
+
+k-최근접 이웃에서 k 개수를 늘리면 과소적합이 되고 극단적으로 k 개수를 줄이면 과대적합이 된다.
+
+```python
+knr.n_neighbors = 3
+KNeighbors의 기본 값인 5가 아니라 3으로 줄여서 사용했다.
+
+knr.fit(train_input, train_target)
+knr 모델을 훈련시킨다.
+  
+print(knr.score(train_input, train_target))
+훈련 세트 점수를 확인한다.
+
+print(knr.score(test_input, test_target))
+테스트 세트 점수를 확인한다.
+```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/0e4ba808-64a4-47de-afb7-a0e45940ceed)
+
+두 갮이 너무 동 떨어지지 않고 두 값이 같이 꽤 높은 값이 유지되면서 훈련 세트가 조금 더 높은 현상을 보여주며 과소적합과 과대적합에 균혀을 그래도 잘 맞췄다고 볼 수 있다.
+
+- 그래프 확인
+
+1. n_neighbors = 1 (이웃한 샘플 1개)
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/ea839a80-985b-4cf5-adbf-ae8047c533cb)
+
+들쭉 날쭉한 그래프 
+
+2. n_neighbors = 3 (이웃한 샘플 3개)
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/b5b68b48-1e5a-4fad-96d7-91a365af056c)
+
+그래도 부드러운 곡선
+3. n_neighbors = 42 (이웃한 샘플 42개)
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/12922f7e-9383-4d88-b731-7de182ec0dcf)
+
+하나의 값만 예측한다.
+
+훈련 세트를 학습하지 못한 과소적합된 모델이다.
