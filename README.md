@@ -733,7 +733,7 @@ print(knr.score(test_input, test_target))
 
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/0e4ba808-64a4-47de-afb7-a0e45940ceed)
 
-두 갮이 너무 동 떨어지지 않고 두 값이 같이 꽤 높은 값이 유지되면서 훈련 세트가 조금 더 높은 현상을 보여주며 과소적합과 과대적합에 균혀을 그래도 잘 맞췄다고 볼 수 있다.
+두 값이 너무 동 떨어지지 않고 두 값이 같이 꽤 높은 값이 유지되면서 훈련 세트가 조금 더 높은 현상을 보여주며 과소적합과 과대적합에 균형을 그래도 잘 맞췄다고 볼 수 있다.
 
 - 그래프 확인
 
@@ -743,11 +743,16 @@ print(knr.score(test_input, test_target))
 
 들쭉 날쭉한 그래프 
 
+과대적합된 모델이다.
+
 2. n_neighbors = 3 (이웃한 샘플 3개)
 
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/b5b68b48-1e5a-4fad-96d7-91a365af056c)
 
 그래도 부드러운 곡선
+
+과소적합과 과대적합에 균형을 그래도 잘 맞춘 모델이다.
+
 3. n_neighbors = 42 (이웃한 샘플 42개)
 
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/12922f7e-9383-4d88-b731-7de182ec0dcf)
