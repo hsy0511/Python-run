@@ -759,3 +759,45 @@ print(knr.score(test_input, test_target))
 하나의 값만 예측한다.
 
 훈련 세트를 학습하지 못한 과소적합된 모델이다.
+
+## 제 7강, 사이킷런으로 선형 회귀 모델 만들어 보기
+
+### 아주 큰 농어
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/9ae50ac6-6a22-4281-9880-8c91c60c57bf)
+
+predict를 통해서 50cm 물고기의 무게를 예측합니다.
+
+1.03kg이 나왔는데 실제로는 농어를 테스트한 당담자는 무게가 1.5kg이라고 잘못된 데이터를 훈련했다라고 문제점을 제시했다.
+
+### 50cm 농어의 이웃
+
+'''python 
+distances, indexes = knr.kneighbors([[50]])
+
+plt.scatter(train_input, train_target)
+
+plt.scatter(train_input[indexes], train_target[indexes], marker='D')
+
+plt.scatter(50, 1033, marker='^')
+plt.show()
+```
+
+### 선형 회귀
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/19ed9e22-6317-4514-960b-5bd497dbbdfd)
+
+### LinearRegression
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/1a379366-1d66-4821-b339-158fb6bff7e3)
+
+### 학습한 직선 그리기
+
+### 다항 회귀
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/c0b16a7e-3632-4bec-9f16-bca785f1f1bd)
+
+### 모델 다시 훈련
+
+### 다시 학습한 직선 그리기
+
