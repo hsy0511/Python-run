@@ -881,6 +881,8 @@ train_poly = np.column_stack((train_input ** 2, train_input))
 test_poly = np.column_stack((test_input ** 2, test_input))
 ```
 
+![image](https://github.com/hsy0511/Python-run/assets/104752580/f4b67a4d-72ac-42d3-b0b7-ca7adbb70611)
+
 이차 방정식 선형 모델로 선형 회귀를 한다.
 
 ### 모델 다시 훈련
