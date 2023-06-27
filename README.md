@@ -774,18 +774,33 @@ predict를 통해서 50cm 물고기의 무게를 예측합니다.
 
 '''python 
 distances, indexes = knr.kneighbors([[50]])
+50cm 농어의 이웃을 구한다.
 
 plt.scatter(train_input, train_target)
+훈련 세트의 산점도를 그린다.
 
 plt.scatter(train_input[indexes], train_target[indexes], marker='D')
+훈련 세트 중에서 이웃 샘플만 다시 그린다.
 
 plt.scatter(50, 1033, marker='^')
+50cm 농어 데이터
+
 plt.show()
 ```
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/aae6ade7-fbb9-4fa3-8b34-2e770f434ff7)
+
+원래는 길이가 늘어나면 무게도 늘어나야되는데 최근접 이웃은 근처에 이웃한 샘플로 예측한다.
+
+k-최근접 이웃 알고리즘은 훈련세트에 있는 샘플 범위 밖에있는 값을 예측하기 어렵다.
 
 ### 선형 회귀
 
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/19ed9e22-6317-4514-960b-5bd497dbbdfd)
+
+1차원 데이터에서 length 하나만 사용하고 있을 때는 직선의 방정식을 나타냄.
+
+3번째가 제일 좋은 직선이다. 이런 직선을 찾는 것이 선형회귀 알고리즘이다.
 
 ### LinearRegression
 
