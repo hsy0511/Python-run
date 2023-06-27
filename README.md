@@ -910,6 +910,8 @@ print(lr.coef_, lr.intercept_)
 
 ### 다시 학습한 직선 그리기
 
+![image](https://github.com/hsy0511/Python-run/assets/104752580/1a5c0e1d-c270-4215-b034-3679e7d536d6)
+
 ```python
 point = np.arange(15, 50)
 구간별 직선을 그리기 위해 15에서 49까지 정수 배열을 만든다.
