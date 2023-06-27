@@ -872,7 +872,9 @@ print(lr.score(test_input, test_target))
 ### 다항 회귀
 다항식으로 선형회귀를 했을 때 다항 회귀라고 한다.
 
-이차 방정식 선형 모델
+이차 방정식 선형 회귀 모델
+
+이차 방정식 : y = ax² x b + c 를 사용하여 훈련시킨다.
 
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/c0b16a7e-3632-4bec-9f16-bca785f1f1bd)
 
@@ -883,8 +885,7 @@ test_poly = np.column_stack((test_input ** 2, test_input))
 
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/f4b67a4d-72ac-42d3-b0b7-ca7adbb70611)
 
-이차 방정식 선형 모델로 선형 회귀를 한다.
-
+이차 방정식 선형 모델로 선형 회귀를 할 준비를 한다.
 ### 모델 다시 훈련
 
 ```python
@@ -896,7 +897,7 @@ lr.fit(train_poly, train_target)
 
 print(lr.predict([[50 ** 2, 50]]))
 50cm 농어의 무게를 예측할 때도 제곱을 해서 예측한다.
-```
+``` 
 
 ![image](https://github.com/hsy0511/Python-run/assets/104752580/64b47156-f456-4324-99f1-6305aa236057)
 
