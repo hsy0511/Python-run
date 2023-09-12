@@ -949,3 +949,95 @@ print(lr.score(test_poly, test_target))
 하지만 테스트 점수가 조금 더 높은 과대적합 모델이기 때문에 
 
 조금 더  모델을 복잡하고 훈련세트가 더 잘맞는 훈련 시킬 필요가 있다.
+
+## 제 8강, 특성 공학과 규제 알아보기
+
+### 다중 회귀(multiple regression)
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/cdd574c5-9b86-48df-836a-3bf069786c69)
+
+변수(특성) 한개면 2차원 평면이 나타나고, 변수 많아지면 3차원 평면이 나타난다.
+
+즉, 다중회귀는 변수가 2개 이상인 데이터의 결과 값을 예측하는 회귀이다.
+### 판다스로 데이터 준비하기
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/95d1dbbc-d225-406e-8f93-897a95857d61)
+
+read_csv 함수를 통해 csv파일을 가져온다.
+
+가져온 csv파일은 넘파이 배열로 변환해준다.
+### 다항 특성 만들기
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/7e12bd2d-77be-4fab-8946-e96ad6bc9a5f)
+
+사이킷런 preprocessing 패키지 밑에 polynomialfeatures 클래스 객체를 할당하여 줍니다. 
+
+degree라는 함수는 제곱근을 뜻합니다(기본값 2)
+
+transform 메서드는 변환기를 뜻한다.
+
+제곱근으로 변환하여 훈련을 시켰는데 1이 나온다.
+
+여기서 1은 절편을 위한 가상의 샘플이다.
+
+### LinearRegression
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/e4002792-6910-4c87-b571-d8dcb404c452)
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/97ada804-a84c-400e-8b6f-42b006814027)
+
+절편을 없애기 위해서 include_bias변수를 false로 지정한다.
+
+shape 함수를 통해 9개의 특성이 생긴것을 볼수 있다.
+
+get_feature_names() 함수로 x0은 첫번째 특성을 뜻하고, x1은 두번째 특성, x2는 세번째 특성인 것을 알 수 있다. 
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/e15a9223-9e0d-4068-aa39-55f8cae3e1c7)
+
+사이킷런 linear_model 패키지 밑에 linearregression 클래스를 할당해 줍니다.
+
+fit 메소드로 훈련세트를 훈련 시킨후 score 메소드로 학습이 잘 되었는지 확인한다.
+
+훈련세트는 0.99, 테스트세트는 0.97로 약간 차이는 있지만 훈련세트에 잘 맞는 좀 더 복잡한 모델이 된 것을 볼 수 있다.
+### 더 많은 특성 만들기
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/18caadc0-1e18-4489-a9d0-8d66ee749cc5)
+
+poly 모델에 polynomialfeatures 클래스 객체를 할당하여 줍니다. 
+
+이때 degree는 5만큼 절편은 include_bias = false로 삭제합니다.
+
+훈련 세트와 테스트 세트를 transform으로 변환시키고, shape 함수로 특성이 몇개가 되었는지 확인한다. (55개)
+
+fit 메소드로 훈련세트를 훈련 시킨후 score 메소드로 학습이 잘 되었는지 확인한다.
+
+훈련세트는 0.99, 테스트세트는 -144.4로 과대적합이 되었다.
+
+이렇게 된 이유는 훈련세트의 개수는 42갠데 특성이 55개이기 때문에 하나하나 적합해도 특성이 남기 때문이다.
+
+### 규제 전에 표준화
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/34a82796-3914-4ff4-8f04-63b27dd5cf03)
+
+사이킷런 preprocessing 패키지 밑에 standardscaler 클래스 객체를 할당하여 줍니다. 
+
+fit 메소드로 55개의 특성이 있는 훈련세트를 훈련한다.
+
+transform으로 훈련세트와 테스트세트를 표준 점수로 변환한다.
+### 릿지 회귀
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/b24a763f-7ec3-4b17-ac2a-b9fb06fb7fbe)
+
+사이킷런 linear_model 패키지 밑에 ridge 클래스를 할당해 줍니다.
+
+표준 점수로 변환했던 훈련세트를 훈련 시킨 후 훈련 세트와 테스트 세트의 점수를 확인해 보니 0.98과 0.97로 테스트 세트가 좋아진 것을 볼 수 있다.
+
+즉 릿지 회귀는 특성이 많아도 가중치를 강제로 억제시켜 좋은 모델로 만드는 회귀인 것을 알 수 있다.
+### 적절한 규제 강도 찾기
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/3f1780c6-71cd-46c0-9058-dacf039a85a9)
+
+알파 값을 리스트로 변환하고 반복해서 훈련하고 테스트를한다.
+### 라쏘 회귀
+
+![image](https://github.com/hsy0511/Python-run/assets/104752580/c336f746-6636-47e8-a170-dc2560cf754d)
